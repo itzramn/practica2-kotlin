@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="cv_img_width">120dp</dimen>
+    <dimen name="cv_img_height">150dp</dimen>
+</resources>

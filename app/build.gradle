@@ -1,0 +1,98 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    //hacer uso de plugin
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs'
+
+    // AGREGAMOS HILT
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+}
+
+android {
+
+    compileSdk 33 //LA VERSION DEL SDK QUE SE ESTA TRABAJANDO
+
+    defaultConfig {
+        applicationId "com.example.testandroid"
+        //La version minima para ejecutar la app
+        minSdk 29
+        //La version que se le esta dando foco
+        targetSdk 33
+        //Se va ir incrementado en uno por funcionalidad, Vistas, etc, que se le va agregando a la app
+        //Identificador de version cuando se sube a google play
+        versionCode 1
+        versionName "1.0"
+
+        //Para poder hacer los test de instrumentacion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
+            //Prevenir que se haga reverse engineering
+            minifyEnabled false
+            //Reglas que se ejecutan para hacer el codigo mas seguro
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/3/"'
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
+    }
+    //region Para ejecutar extensiones kotlin y lambda
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    //endregion
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    //NAVIGATION
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //HILT
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+
+    //ROOM
+    implementation "androidx.room:room-runtime:2.5.0"
+    implementation 'androidx.room:room-ktx:2.5.0'
+    kapt "androidx.room:room-compiler:2.5.0"
+
+    //RETROFIT
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
