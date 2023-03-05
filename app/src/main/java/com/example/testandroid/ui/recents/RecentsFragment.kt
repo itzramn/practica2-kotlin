@@ -15,6 +15,7 @@ import com.example.testandroid.R
 import com.example.testandroid.data.entities.MovieEntity
 import com.example.testandroid.data.model.ResourceStatus
 import com.example.testandroid.databinding.FragmentPopularBinding
+import com.example.testandroid.databinding.FragmentRecentsBinding
 import com.example.testandroid.ui.popular.PopularFragmentDirections
 import com.example.testandroid.ui.recents.RecentsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class RecentsFragment : Fragment(), RecentsMovieItemAdapter.OnMovieClickListener {
 
-    private var _binding: FragmentPopularBinding? = null
+    private var _binding: FragmentRecentsBinding? = null
 
     private val binding get() = _binding!!
 
@@ -31,14 +32,14 @@ class RecentsFragment : Fragment(), RecentsMovieItemAdapter.OnMovieClickListener
         defaultViewModelProviderFactory
     }
 
-    private lateinit var popularMovieItemAdapter: RecentsMovieItemAdapter
+    private lateinit var recentsMovieItemAdapter: RecentsMovieItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentPopularBinding.inflate(inflater, container, false)
+        _binding = FragmentRecentsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -55,8 +56,8 @@ class RecentsFragment : Fragment(), RecentsMovieItemAdapter.OnMovieClickListener
                 }
                 ResourceStatus.SUCCESS  -> {
                     Log.e("fetchPopularMovies", "Success")
-                    popularMovieItemAdapter = RecentsMovieItemAdapter(it.data!!, this@RecentsFragment)
-                    binding.rvMovies.adapter = popularMovieItemAdapter
+                    recentsMovieItemAdapter = RecentsMovieItemAdapter(it.data!!, this@RecentsFragment)
+                    binding.rvMovies.adapter = recentsMovieItemAdapter
                 }
                 ResourceStatus.ERROR -> {
                     Log.e("fetchPopularMovies", "Failure: ${it.message} ")
