@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeFragment, R.id.recentsFragment, R.id.blankFragment)
+            setOf(R.id.homeFragment, R.id.recentsFragment, R.id.favoritesFragment)
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -47,6 +47,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_recents -> {
                     // Acción cuando se selecciona el elemento del dashboard
                     navController.navigate(R.id.recentsFragment)
+                    true
+                }
+                R.id.navigation_favorites -> {
+                    // Acción cuando se selecciona el elemento del dashboard
+                    navController.navigate(R.id.favoritesFragment)
                     true
                 }
                 else -> false

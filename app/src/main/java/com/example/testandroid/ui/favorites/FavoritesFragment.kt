@@ -1,4 +1,4 @@
-package com.example.testandroid.ui.recents
+package com.example.testandroid.ui.favorites
 
 import android.os.Bundle
 import android.util.Log
@@ -14,30 +14,28 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testandroid.R
 import com.example.testandroid.data.entities.MovieEntity
 import com.example.testandroid.data.model.ResourceStatus
-import com.example.testandroid.databinding.FragmentRecentsBinding
-import com.example.testandroid.ui.recents.RecentsFragmentDirections
+import com.example.testandroid.databinding.FragmentFavoritesBinding
+import com.example.testandroid.ui.favorites.FavoritesFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
-
-
 @AndroidEntryPoint
-class RecentsFragment : Fragment(), RecentsMovieItemAdapter.OnMovieClickListener {
+class FavoritesFragment : Fragment(), FavoritesMovieItemAdapter.OnMovieClickListener {
 
-    private var _binding: FragmentRecentsBinding? = null
+    private var _binding: FragmentFavoritesBinding? = null
 
     private val binding get() = _binding!!
 
-    private val viewModel: RecentsViewModel by navGraphViewModels(R.id.nav_graph) {
+    private val viewModel: FavoritesViewModel by navGraphViewModels(R.id.nav_graph) {
         defaultViewModelProviderFactory
     }
 
-    private lateinit var recentsMovieItemAdapter: RecentsMovieItemAdapter
+    private lateinit var popularMovieItemAdapter: FavoritesMovieItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentRecentsBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -54,8 +52,8 @@ class RecentsFragment : Fragment(), RecentsMovieItemAdapter.OnMovieClickListener
                 }
                 ResourceStatus.SUCCESS  -> {
                     Log.e("fetchPopularMovies", "Success")
-                    recentsMovieItemAdapter = RecentsMovieItemAdapter(it.data!!, this@RecentsFragment)
-                    binding.rvMovies.adapter = recentsMovieItemAdapter
+                    popularMovieItemAdapter = FavoritesMovieItemAdapter(it.data!!, this@FavoritesFragment)
+                    binding.rvMovies.adapter = popularMovieItemAdapter
                 }
                 ResourceStatus.ERROR -> {
                     Log.e("fetchPopularMovies", "Failure: ${it.message} ")
@@ -72,7 +70,7 @@ class RecentsFragment : Fragment(), RecentsMovieItemAdapter.OnMovieClickListener
     }
 
     override fun onMovieClick(movieEntity: MovieEntity) {
-        val action = RecentsFragmentDirections.actionRecentsFragmentToDetailFragment(movieEntity)
+        val action = FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(movieEntity)
         findNavController().navigate(action)
     }
 }
