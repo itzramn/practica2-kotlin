@@ -1,4 +1,4 @@
-package com.example.testandroid.ui.recents
+package com.example.testandroid.ui.top
 
 import android.os.Bundle
 import android.util.Log
@@ -14,30 +14,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testandroid.R
 import com.example.testandroid.data.entities.MovieEntity
 import com.example.testandroid.data.model.ResourceStatus
-import com.example.testandroid.databinding.FragmentRecentsBinding
-import com.example.testandroid.ui.recents.RecentsFragmentDirections
+import com.example.testandroid.databinding.FragmentTopBinding
 import dagger.hilt.android.AndroidEntryPoint
-
-
 @AndroidEntryPoint
-class RecentsFragment : Fragment(), RecentsMovieItemAdapter.OnMovieClickListener {
+class TopFragment : Fragment(), TopMovieItemAdapter.OnMovieClickListener {
 
-    private var _binding: FragmentRecentsBinding? = null
+    private var _binding: FragmentTopBinding? = null
 
     private val binding get() = _binding!!
 
-    private val viewModel: RecentsViewModel by navGraphViewModels(R.id.nav_graph) {
+    private val viewModel: TopViewModel by navGraphViewModels(R.id.nav_graph) {
         defaultViewModelProviderFactory
     }
 
-    private lateinit var recentsMovieItemAdapter: RecentsMovieItemAdapter
+    private lateinit var topMovieItemAdapter: TopMovieItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentRecentsBinding.inflate(inflater, container, false)
+        _binding = FragmentTopBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -47,15 +44,15 @@ class RecentsFragment : Fragment(), RecentsMovieItemAdapter.OnMovieClickListener
 
         binding.rvMovies.layoutManager = LinearLayoutManager(context)
 
-        viewModel.fetchPopularMovies.observe(viewLifecycleOwner, Observer {
+        viewModel.fetchTopMovies.observe(viewLifecycleOwner, Observer {
             when (it.resourceStatus) {
                 ResourceStatus.LOADING -> {
                     Log.e("fetchPopularMovies", "Loading")
                 }
                 ResourceStatus.SUCCESS  -> {
                     Log.e("fetchPopularMovies", "Success")
-                    recentsMovieItemAdapter = RecentsMovieItemAdapter(it.data!!, this@RecentsFragment)
-                    binding.rvMovies.adapter = recentsMovieItemAdapter
+                    topMovieItemAdapter = TopMovieItemAdapter(it.data!!, this@TopFragment)
+                    binding.rvMovies.adapter = topMovieItemAdapter
                 }
                 ResourceStatus.ERROR -> {
                     Log.e("fetchPopularMovies", "Failure: ${it.message} ")
@@ -72,7 +69,7 @@ class RecentsFragment : Fragment(), RecentsMovieItemAdapter.OnMovieClickListener
     }
 
     override fun onMovieClick(movieEntity: MovieEntity) {
-        val action = RecentsFragmentDirections.actionRecentsFragmentToDetailFragment(movieEntity)
+        val action = TopFragmentDirections.actionTopFragmentToDetailFragment(movieEntity)
         findNavController().navigate(action)
     }
 }

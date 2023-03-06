@@ -1,4 +1,4 @@
-package com.example.testandroid.ui.favorites
+package com.example.testandroid.ui.upcoming
 
 import android.os.Bundle
 import android.util.Log
@@ -14,28 +14,29 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testandroid.R
 import com.example.testandroid.data.entities.MovieEntity
 import com.example.testandroid.data.model.ResourceStatus
-import com.example.testandroid.databinding.FragmentFavoritesBinding
-import com.example.testandroid.ui.favorites.FavoritesFragmentDirections
+import com.example.testandroid.databinding.FragmentUpcomingBinding
 import dagger.hilt.android.AndroidEntryPoint
-@AndroidEntryPoint
-class FavoritesFragment : Fragment(), FavoritesMovieItemAdapter.OnMovieClickListener {
 
-    private var _binding: FragmentFavoritesBinding? = null
+
+@AndroidEntryPoint
+class UpcomingFragment : Fragment(), UpcomingMovieItemAdapter.OnMovieClickListener {
+
+    private var _binding: FragmentUpcomingBinding? = null
 
     private val binding get() = _binding!!
 
-    private val viewModel: FavoritesViewModel by navGraphViewModels(R.id.nav_graph) {
+    private val viewModel: UpcomingViewModel by navGraphViewModels(R.id.nav_graph) {
         defaultViewModelProviderFactory
     }
 
-    private lateinit var popularMovieItemAdapter: FavoritesMovieItemAdapter
+    private lateinit var upcomingMovieItemAdapter: UpcomingMovieItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -45,18 +46,18 @@ class FavoritesFragment : Fragment(), FavoritesMovieItemAdapter.OnMovieClickList
 
         binding.rvMovies.layoutManager = LinearLayoutManager(context)
 
-        viewModel.fetchPopularMovies.observe(viewLifecycleOwner, Observer {
+        viewModel.fetchUpcomingMovies.observe(viewLifecycleOwner, Observer {
             when (it.resourceStatus) {
                 ResourceStatus.LOADING -> {
                     Log.e("fetchPopularMovies", "Loading")
                 }
                 ResourceStatus.SUCCESS  -> {
                     Log.e("fetchPopularMovies", "Success")
-                    popularMovieItemAdapter = FavoritesMovieItemAdapter(it.data!!, this@FavoritesFragment)
-                    binding.rvMovies.adapter = popularMovieItemAdapter
+                    upcomingMovieItemAdapter = UpcomingMovieItemAdapter(it.data!!, this@UpcomingFragment)
+                    binding.rvMovies.adapter = upcomingMovieItemAdapter
                 }
                 ResourceStatus.ERROR -> {
-                    Log.e("fetchPopularMovies", "Failure: ${it.message} ")
+                    Log.e("fetchUpcomingMovies", "Failure: ${it.message} ")
                     Toast.makeText(requireContext(), "Failure: ${it.message}", Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -70,7 +71,7 @@ class FavoritesFragment : Fragment(), FavoritesMovieItemAdapter.OnMovieClickList
     }
 
     override fun onMovieClick(movieEntity: MovieEntity) {
-        val action = FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(movieEntity)
+        val action = UpcomingFragmentDirections.actionUpcomingFragmentToDetailFragment(movieEntity)
         findNavController().navigate(action)
     }
 }

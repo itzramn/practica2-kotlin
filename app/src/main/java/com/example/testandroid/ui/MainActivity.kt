@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeFragment, R.id.recentsFragment, R.id.favoritesFragment)
+            setOf(R.id.homeFragment, R.id.upcomingFragment, R.id.topFragment)
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -39,19 +39,19 @@ class MainActivity : AppCompatActivity() {
         // Configura el listener de selección de elementos del menú
         bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.navigation_home -> {
+                R.id.navigation_popular -> {
                     // Acción cuando se selecciona el elemento de inicio
                     navController.navigate(R.id.homeFragment)
                     true
                 }
-                R.id.navigation_recents -> {
+                R.id.navigation_upcoming -> {
                     // Acción cuando se selecciona el elemento del dashboard
-                    navController.navigate(R.id.recentsFragment)
+                    navController.navigate(R.id.upcomingFragment)
                     true
                 }
-                R.id.navigation_favorites -> {
+                R.id.navigation_top -> {
                     // Acción cuando se selecciona el elemento del dashboard
-                    navController.navigate(R.id.favoritesFragment)
+                    navController.navigate(R.id.topFragment)
                     true
                 }
                 else -> false
@@ -59,6 +59,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Selecciona el elemento de inicio como predeterminado
-        bottomNavigationView.selectedItemId = R.id.navigation_home
+        bottomNavigationView.selectedItemId = R.id.navigation_popular
     }
 }

@@ -1,4 +1,4 @@
-package com.example.testandroid.ui.recents
+package com.example.testandroid.ui.upcoming
 
 
 import android.view.LayoutInflater
@@ -8,23 +8,23 @@ import com.example.testandroid.data.entities.MovieEntity
 import com.example.testandroid.databinding.ItemMovieBinding
 import com.squareup.picasso.Picasso
 
-class RecentsMovieItemAdapter (
+class UpcomingMovieItemAdapter (
     private val moviesList: List<MovieEntity>,
     private val itemClickListener: OnMovieClickListener
-) : RecyclerView.Adapter<RecentsMovieItemAdapter.PopularViewHolder>()  {
+) : RecyclerView.Adapter<UpcomingMovieItemAdapter.UpcomingViewHolder>()  {
 
     interface OnMovieClickListener {
         fun onMovieClick(movieEntity: MovieEntity)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingViewHolder {
         val binding  = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PopularViewHolder(binding)
+        return UpcomingViewHolder(binding)
     }
 
     override fun getItemCount() = moviesList.size
 
-    override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
         with(holder){
             with(moviesList[position]) {
                 binding.titleMovieText.text = title
@@ -42,7 +42,7 @@ class RecentsMovieItemAdapter (
         }
     }
 
-    inner class PopularViewHolder(val binding: ItemMovieBinding)
+    inner class UpcomingViewHolder(val binding: ItemMovieBinding)
         :RecyclerView.ViewHolder(binding.root)
 
 }

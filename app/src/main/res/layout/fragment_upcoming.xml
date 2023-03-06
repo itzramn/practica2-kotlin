@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.recents.RecentsFragment">
+    tools:context=".ui.upcoming.UpcomingFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_recents_movie"
+            android:text="@string/label_upcoming_movie"
             android:textSize="20sp"
             android:textStyle="bold" />
 

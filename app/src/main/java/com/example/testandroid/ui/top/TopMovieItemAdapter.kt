@@ -1,4 +1,4 @@
-package com.example.testandroid.ui.favorites
+package com.example.testandroid.ui.top
 
 
 import android.view.LayoutInflater
@@ -8,23 +8,23 @@ import com.example.testandroid.data.entities.MovieEntity
 import com.example.testandroid.databinding.ItemMovieBinding
 import com.squareup.picasso.Picasso
 
-class FavoritesMovieItemAdapter (
+class TopMovieItemAdapter (
     private val moviesList: List<MovieEntity>,
     private val itemClickListener: OnMovieClickListener
-) : RecyclerView.Adapter<FavoritesMovieItemAdapter.PopularViewHolder>()  {
+) : RecyclerView.Adapter<TopMovieItemAdapter.TopViewHolder>()  {
 
     interface OnMovieClickListener {
         fun onMovieClick(movieEntity: MovieEntity)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopViewHolder {
         val binding  = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PopularViewHolder(binding)
+        return TopViewHolder(binding)
     }
 
     override fun getItemCount() = moviesList.size
 
-    override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TopViewHolder, position: Int) {
         with(holder){
             with(moviesList[position]) {
                 binding.titleMovieText.text = title
@@ -42,7 +42,7 @@ class FavoritesMovieItemAdapter (
         }
     }
 
-    inner class PopularViewHolder(val binding: ItemMovieBinding)
+    inner class TopViewHolder(val binding: ItemMovieBinding)
         :RecyclerView.ViewHolder(binding.root)
 
 }

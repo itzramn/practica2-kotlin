@@ -1,4 +1,4 @@
-package com.example.testandroid.ui.recents
+package com.example.testandroid.ui.upcoming
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +10,8 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class RecentsViewModel @Inject constructor (private val repository: MovieRepository) : ViewModel() {
+class UpcomingViewModel @Inject constructor (private val repository: MovieRepository) : ViewModel() {
 
+    val fetchUpcomingMovies: LiveData<Resource<List<MovieEntity>>> = repository.getUpcomingMovies()
 
-
-    val fetchPopularMovies: LiveData<Resource<List<MovieEntity>>> = repository.getPopularMovies()
 }

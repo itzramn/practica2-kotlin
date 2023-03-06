@@ -1,4 +1,4 @@
-package com.example.testandroid.ui.favorites
+package com.example.testandroid.ui.top
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -10,9 +10,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class FavoritesViewModel @Inject constructor (private val repository: MovieRepository) : ViewModel() {
+class TopViewModel @Inject constructor (private val repository: MovieRepository) : ViewModel() {
 
-
-
-    val fetchPopularMovies: LiveData<Resource<List<MovieEntity>>> = repository.getPopularMovies()
+    val fetchTopMovies: LiveData<Resource<List<MovieEntity>>> = repository.getTopMovies()
 }
