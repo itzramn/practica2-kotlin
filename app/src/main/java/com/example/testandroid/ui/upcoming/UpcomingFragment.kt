@@ -81,8 +81,6 @@ class UpcomingFragment : Fragment(), UpcomingMovieItemAdapter.OnMovieClickListen
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     val totalItemCount = layoutManager.itemCount
                     val lastVisiblePosition = layoutManager.findLastVisibleItemPosition()
-                    Log.e("totalItemCount", totalItemCount.toString())
-                    Log.e("lastVisiblePosition", lastVisiblePosition.toString())
 
                     if (totalItemCount <= lastVisiblePosition + visibleThreshold) {
                         Log.e("Voy a cargar mas items", "Confirmo")

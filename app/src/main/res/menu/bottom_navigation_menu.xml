@@ -9,12 +9,12 @@
 
     <item
         android:id="@+id/navigation_upcoming"
-        android:icon="@drawable/ic_upcoming"
+        android:icon="@drawable/ic_action_upcoming"
         android:title="@string/upcoming" />
 
     <item
         android:id="@+id/navigation_top"
-        android:icon="@drawable/ic_top"
+        android:icon="@drawable/ic_action_top"
         android:title="@string/top_rated" />
 
 </menu>
