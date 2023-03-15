@@ -12,21 +12,21 @@ class MovieRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource) {
 
 
-    fun getPopularMovies() = performGetOperation(
+    fun getPopularMovies(page: Int) = performGetOperation(
         databaseQuery = { localDataSource.getAllMovies(MovieType.POPULAR.value) },
-        networkCall = { remoteDataSource.getPopularMovies() },
+        networkCall = { remoteDataSource.getPopularMovies(page) },
         saveCallResult = { localDataSource.insertAll(it.results.toMovieEntityList(MovieType.POPULAR.value)) }
     )
 
-    fun getUpcomingMovies() = performGetOperation(
+    fun getUpcomingMovies(page: Int) = performGetOperation(
         databaseQuery = { localDataSource.getAllMovies(MovieType.UPCOMING.value) },
-        networkCall = { remoteDataSource.getUpcomingMovies() },
+        networkCall = { remoteDataSource.getUpcomingMovies(page) },
         saveCallResult = { localDataSource.insertAll(it.results.toMovieEntityList(MovieType.UPCOMING.value)) }
     )
 
-    fun getTopMovies() = performGetOperation(
+    fun getTopMovies(page: Int) = performGetOperation(
         databaseQuery = { localDataSource.getAllMovies(MovieType.TOP.value) },
-        networkCall = { remoteDataSource.getTopMovies() },
+        networkCall = { remoteDataSource.getTopMovies(page) },
         saveCallResult = { localDataSource.insertAll(it.results.toMovieEntityList(MovieType.TOP.value)) }
     )
 }

@@ -1,13 +1,10 @@
 package com.example.testandroid.ui.popular
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testandroid.data.entities.MovieEntity
-import com.example.testandroid.data.model.Movie
 import com.example.testandroid.databinding.ItemMovieBinding
-import com.example.testandroid.utils.DateUtils
 import com.squareup.picasso.Picasso
 
 class PopularMovieItemAdapter (
