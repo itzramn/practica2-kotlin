@@ -3,15 +3,16 @@ package com.example.testandroid.ui.detail
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.navArgs
 import com.example.testandroid.R
 import com.example.testandroid.databinding.FragmentDetailBinding
 import com.squareup.picasso.Picasso
 
 class DetailFragment : Fragment() {
-
 
     private val args by navArgs<DetailFragmentArgs>()
     private var _binding: FragmentDetailBinding? = null
@@ -29,9 +30,13 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val activity = requireActivity() as AppCompatActivity
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setHasOptionsMenu(true)
+
         binding.txtTitle.text = args.movie.title
         binding.txtDescription.text = args.movie.overview
         Picasso.get()
@@ -44,6 +49,16 @@ class DetailFragment : Fragment() {
 
         binding.txtRates.text = String.format(getString(R.string.vote_average), args.movie.voteAverage, args.movie.voteCount )
         binding.releaseMovieText.text = String.format(getString(R.string.release_date), args.movie.releaseDate)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                requireActivity().onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {
